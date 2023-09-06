@@ -14,8 +14,6 @@ void setup()
 }
 void loop() 
 {
-
-
   // Look for new cards
   if ( ! mfrc522.PICC_IsNewCardPresent()) 
   {
@@ -26,17 +24,14 @@ void loop()
   {
     return;
   }
-  //Show UID on serial monitor
-  Serial.println();
-  Serial.print(" UID tag :");
   String content= "";
-  byte letter;
   for (byte i = 0; i < mfrc522.uid.size; i++) 
   {
-     Serial.print(mfrc522.uid.uidByte[i] < 0x10 ? " 0" : " ");
-     Serial.print(mfrc522.uid.uidByte[i], HEX);
      content.concat(String(mfrc522.uid.uidByte[i] < 0x10 ? " 0" : " "));
      content.concat(String(mfrc522.uid.uidByte[i], HEX));
   }
   content.toUpperCase();
+  String rfid=content.substring(1);
+  Serial.println(rfid);
+
 }
